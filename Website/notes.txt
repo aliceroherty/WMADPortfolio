@@ -1,0 +1,4 @@
+TO DO:
+	Make the particles interactable without breaking the site.
+
+	Migrate any margins, font sizes, widths, etc. into media queries
