@@ -19,13 +19,13 @@ $(() => {
                     collapseNav();
                     break;
                 case "about":
-                    animateCSS(".slideContainer", "slideInRight")
+                    animateCSS("#aboutSection .slideContainer", "fadeInRight")
                     break;
                 case "portfolio":
-                    
+                    animateCSS("#portfolioSection .slideContainer", "fadeInLeft")
                     break;
                 case "blog":
-                    
+                    animateCSS("#blogSection .slideContainer", "fadeInRight")
                     break;
                 case "contact":
                     
@@ -39,13 +39,13 @@ $(() => {
                     
                     break;
                 case "about":
-                    animateCSS(".slideContainer", "slideOutRight")
+                    animateCSS("#aboutSection .slideContainer", "fadeOutRight")
                     break;
                 case "portfolio":
-                    
+                    animateCSS("#portfolioSection .slideContainer", "fadeOutLeft")
                     break;
                 case "blog":
-                    
+                    animateCSS("#blogSection .slideContainer", "fadeOutRight")
                     break;
                 case "contact":
                     
@@ -71,9 +71,11 @@ $(window).on("load", () => {
     $("html").css("visibility", "visible");
     $("html").css("opacity", "1");
 
-    animateCSS("#landingPageContainer h1", "bounceInLeft");
-    animateCSS("#landingPageContainer h3", "bounceInRight");
-    animateCSS("#landingPageContainer button", "bounceInLeft", () => {
+    animateCSS("#landingPageContainer h1", "bounceInDown");
+    animateCSS("#landingPageContainer h3", "bounceInDown");
+    $('#landingPageContainer button').addClass('delay-2s');
+    animateCSS("#landingPageContainer button", "bounceInUp", () => {
+        $('#landingPageContainer button').removeClass('delay-2s');
         animateCSS("#landingPageContainer button", "rubberBand");
     });
 });

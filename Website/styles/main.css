@@ -84,6 +84,7 @@ body {
 #landingPageContainer h3 {
     font-family: 'Roboto Slab', 'Montserrat', sans-serif;
     font-weight: bold;
+    animation-delay: 1000ms;
 }
 
 #landingPageContainer button {
@@ -157,6 +158,8 @@ body {
     margin-bottom: 3.5em;
     flex: 1 !important;
     align-items: stretch !important;
+    animation-duration: 700ms;
+
 }
 
 hr {
