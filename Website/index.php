@@ -1,6 +1,10 @@
+<?php
+    include 'includes/dbHelper.php';
+    $blogPosts = execute("SELECT * FROM blogposts ORDER BY date DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,42 +25,14 @@
     <link rel="stylesheet" type="text/css" href="./lib/animate.css" />
     <link rel="stylesheet" type="text/css" href="./lib/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="styles/main.css" />
-
+    
     <script src="https://kit.fontawesome.com/bfea4cb977.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-0 pb-0" id="menu">
-        <a class="navbar-brand align-items-center" href="#home">
-            <img src="assets/Logo.png" alt="Logo" class="d-inline-block align-center" id="logo" />
-            Alice Roherty
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#home" data-menuanchor="home">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about" data-menuanchor="about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#portfolio" data-menuanchor="portfolio">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#blog" data-menuanchor="blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact" data-menuanchor="contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#resume" data-menuanchor="resume">Resume</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php
+        include "includes/nav.php";
+    ?>
     <div id="particles"></div>
     <div id="wrapper">
         <div class="section" id="homeSection">
@@ -196,91 +172,48 @@
         <div class="section" id="blogSection">
             <div class="sectionContainer">
                 <h1>Blog</h1>
+                <?php
+                    for ($i = 1; $i <= count($blogPosts); $i++) {
+                        if ($i % 3 == 1) {
+                            echo "<div class=\"slide\">
+                            <div class=\"slideContainer\">";
+                        }
 
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                        <div class="card blogPost">
-                            <img class="card-img-top" src="assets/Card_Test.jpg" alt="" />
-                            <div class="card-body blogPostBody">
-                                <h3 class="card-title">Title</h3>
-                                <hr />
-                                <p class="card-text blogPostDate">Date</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        $post = $blogPosts[$i - 1];
+                        $id = $post->ID;
+                        $title = $post->Title;
+                        $date = $post->Date;
+                        $image = $post->ImagePath;
+                        $text = $post->Text;
+
+                        if (!empty($image)) {
+                            echo 
+                            "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
+                                <img class=\"card-img-top\" src=\"$image\" />
+                                <div class=\"card-body blogPostBody\">
+                                    <h3 class=\"card-title\">$title</h3>
+                                    <hr />
+                                    <p class=\"card-text blogPostDate\">$date</p>
+                                </div>
+                            </div>";
+                        } else {
+                            echo 
+                            "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
+                                <img class=\"card-img-top\" src=\"assets/default.jpg\" />
+                                <div class=\"card-body blogPostBody\">
+                                    <h3 class=\"card-title\">$title</h3>
+                                    <hr />
+                                    <p class=\"card-text blogPostDate\">$date</p>
+                                </div>
+                            </div>";
+                        }
+
+                        if ($i % 3 == 0 || $i == count($blogPosts)) {
+                            echo "</div>
+                            </div>";
+                        }
+                    }
+                ?>
             </div>
         </div>
 
@@ -303,5 +236,4 @@
     <script src="lib/bootstrap.min.js"></script>
     <script src="js/app.js"></script>
 </body>
-
 </html>

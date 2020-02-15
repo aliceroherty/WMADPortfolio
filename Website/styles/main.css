@@ -8,6 +8,7 @@ body {
     background-image: url('../assets/Background_Desktop.svg');
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     position: relative;
+    font-size: 1vw;
 }
 
 .navbar {
@@ -16,7 +17,7 @@ body {
     right: 0;
     z-index: 999;
     background-color: #333 !important;
-    font-size: 1.5em;
+    font-size: 2vw;
     transition: top 500ms ease-in-out;
     text-align: bottom;
 }
@@ -79,12 +80,15 @@ body {
 #landingPageContainer h1 {
     font-family: 'Roboto Slab', 'Montserrat', sans-serif;
     font-weight: bold;
+    font-size: 5vw !important;
+    margin-top: 5vh !important;
 }
 
 #landingPageContainer h3 {
     font-family: 'Roboto Slab', 'Montserrat', sans-serif;
     font-weight: bold;
     animation-delay: 1000ms;
+    font-size: 4vw !important;
 }
 
 #landingPageContainer button {
@@ -94,6 +98,8 @@ body {
     border: 0.1em solid #fff;
     color: #fff;
     transition: transform 300ms ease-in-out, border 200ms ease-in-out 50ms, width 300ms ease-in-out, background-color 500ms ease-in-out, color 500ms ease-in-out;
+    font-size: 3vw !important;
+    margin-bottom: 1.5em !important;
 }
 
 #landingPageContainer button:hover {
@@ -117,6 +123,7 @@ body {
 .fp-controlArrow.fp-prev {
     left: 0;
     background-image: url('../assets/back.svg') !important;
+    background-size: cover;
 }
 
 .fp-controlArrow.fp-prev:hover {
@@ -126,6 +133,7 @@ body {
 .fp-controlArrow.fp-next {
     right: 0;
     background-image: url('../assets/next.svg');
+    background-size: cover;
 }
 
 .fp-controlArrow.fp-next:hover {
@@ -152,19 +160,22 @@ body {
 
 .slideContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-left: 3.5em;
     padding-right: 3.5em;
     margin-bottom: 3.5em;
     flex: 1 !important;
     align-items: stretch !important;
-    animation-duration: 700ms;
+    max-height: 60%;
+}
 
+.fp-slide.active {
+    animation-duration: 700ms;
 }
 
 hr {
     border-color: #44ADE2;
-    margin: 0 0 1em 0;
+    margin: 1em 0 1em 0;
 }
 
 .blogPostDate {
@@ -175,30 +186,44 @@ hr {
     background-color: #333 !important;
 }
 
+.sectionContainer h1 {
+    margin-top: 1em;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.card-title {
+    margin-bottom: 0;
+}
+
+.about .card-title {
+    margin-top: 5%;
+    font-size: 1.5em;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 769px) {
     #landingPageContainer h1 {
-        margin-top: 1em;
-        font-size: 4em;
+        margin-top: 10vh;
+        font-size: 7vw;
     }
 
     #landingPageContainer h3 {
         margin-top: 1em;
-        font-size: 3em;
+        font-size: 6vw;
     }
 
     #landingPageContainer button {
         margin-top: auto;
         margin-bottom: 2em;
-        font-size: 2em;
         width: 60%;
         padding: 10px;
-        font-size: 2em;
+        font-size: 5vw;
         font-weight:bold;
-    }
-    
-    .sectionContainer h1 {
-        margin-top: 1em;
     }
 
     .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
@@ -216,7 +241,7 @@ hr {
 
     .card {
         width: 31% !important;
-        height: 50% !important;
+        min-height: 100% !important;
     }
 
     .fp-slides {
@@ -241,50 +266,182 @@ hr {
         max-height: 8em;
         margin-bottom: 0.5em;
     }
+
+    .card:first-child, .card:nth-child(2) {
+        margin-right: 3.5%;
+    }
+}
+
+/*Bootstrap Hamburger Menu Breakpoint*/
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+    .navbar {
+        font-size: 3.5vw;
+    }
+
+    #landingPageContainer h1 {
+        margin-top: 10vh;
+        font-size: 9vw !important;
+    }
+
+    #landingPageContainer h3 {
+        margin-top: 0.25em !important;
+        font-size: 7.5vw !important;
+    }
+
+    #landingPageContainer button {
+        margin-top: auto;
+        margin-bottom: 0.5em !important;
+        width: 95%;
+        padding: 1vw;
+        font-size: 6vw !important;
+        font-weight:bold;
+    }
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 577px) and (max-width:768px) {
     #landingPageContainer h1 {
-        margin-top: 0.5em;
-        font-size: 3em;
+        margin-top: 10vh;
+        font-size: 9vw !important;
     }
 
     #landingPageContainer h3 {
-        margin-top: 0em;
-        font-size: 2em;
+        margin-top: 0.25em !important;
+        font-size: 7.5vw !important;
     }
 
     #landingPageContainer button {
         margin-top: auto;
-        margin-bottom: 1em;
-        font-size: 2em;
-        width: 80%;
-        padding: 10px;
-        font-size: 1.5em;
+        margin-bottom: 1em !important;
+        width: 95%;
+        padding: 1vw;
+        font-size: 6vw !important;
         font-weight:bold;
+    }
+
+    .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
+        width: 2.5%;
+        height:6%;
+    }
+
+    .fp-controlArrow.fp-prev {
+        margin-left: 1.5em;
+    }
+
+    .fp-controlArrow.fp-next {
+        margin-right: 1.5em;
+    }
+
+    .navbar {
+        font-size: 4.5vw;
     }
 }
 
 /* Mobile Styles */
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 451px) and (max-width: 576px) {
     #landingPageContainer h1 {
-        margin-top: 1em;
-        font-size: 2em;
+        margin-top: 10vh;
+        font-size: 9vw !important;
     }
 
     #landingPageContainer h3 {
-        margin-top: 1em;
-        font-size: 1.5em;
+        margin-top: 0.25em !important;
+        font-size: 7.5vw !important;
     }
 
     #landingPageContainer button {
         margin-top: auto;
-        margin-bottom: 1.5em;
-        font-size: 2em;
+        margin-bottom: 1em !important;
         width: 95%;
-        padding: 10px;
-        font-size: 1.5em;
+        padding: 1vw;
+        font-size: 8vw !important;
         font-weight:bold;
+    }
+
+    .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
+        width: 2.5%;
+        height:6%;
+    }
+
+    .fp-controlArrow.fp-prev {
+        margin-left: 1.5em;
+    }
+
+    .fp-controlArrow.fp-next {
+        margin-right: 1.5em;
+    }
+
+    .navbar {
+        font-size: 6vw;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    #landingPageContainer h1 {
+        margin-top: 10vh;
+        font-size: 9vw !important;
+    }
+
+    #landingPageContainer h3 {
+        margin-top: 0.25em !important;
+        font-size: 7.5vw !important;
+    }
+
+    #landingPageContainer button {
+        margin-top: auto;
+        margin-bottom: 1em !important;
+        width: 95%;
+        padding: 1vw;
+        font-size: 8vw !important;
+        font-weight:bold;
+    }
+
+    .navbar {
+        font-size: 7.5vw;
+    }
+
+    .card {
+        width: 85% !important;
+        min-height: 100% !important;
+    }
+
+    .slideContainer {
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 0;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+    }
+    
+    .card-title {
+        margin-bottom: 0;
+        font-size: 7vw;
+    }
+
+    .card-text {
+        font-size: 5vw;
+    }
+
+    hr {
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+
+    .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
+        width: 6vw;
+        height: 5vh;
+    }
+
+    .fp-controlArrow.fp-prev {
+        margin-left: 1em;
+    }
+
+    .fp-controlArrow.fp-next {
+        margin-right: 1em;
     }
 }
