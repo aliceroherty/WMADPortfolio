@@ -11,16 +11,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Alice Roherty's Portfolio</title>
 
-    <style>
-        /*Getting rid of Flash of Unstyled Content*/
-        html {
-            visibility: hidden;
-            opacity: 0;
+    <link rel="stylesheet" type="text/css" href="styles/fousc.css" />
 
-            /*Getting rid of flash of scroll bar before fullpage is initialized*/
-            overflow: hidden;
-        }
-    </style>
+    <script src="lib/jquery-3.4.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="./lib/fullpage.min.css" />
     <link rel="stylesheet" type="text/css" href="./lib/animate.css" />
     <link rel="stylesheet" type="text/css" href="./lib/bootstrap.min.css" />
@@ -173,44 +168,46 @@
             <div class="sectionContainer">
                 <h1>Blog</h1>
                 <?php
-                    for ($i = 1; $i <= count($blogPosts); $i++) {
-                        if ($i % 3 == 1) {
-                            echo "<div class=\"slide\">
-                            <div class=\"slideContainer\">";
-                        }
-
-                        $post = $blogPosts[$i - 1];
-                        $id = $post->ID;
-                        $title = $post->Title;
-                        $date = $post->Date;
-                        $image = $post->ImagePath;
-                        $text = $post->Text;
-
-                        if (!empty($image)) {
-                            echo 
-                            "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
-                                <img class=\"card-img-top\" src=\"$image\" />
-                                <div class=\"card-body blogPostBody\">
-                                    <h3 class=\"card-title\">$title</h3>
-                                    <hr />
-                                    <p class=\"card-text blogPostDate\">$date</p>
-                                </div>
-                            </div>";
-                        } else {
-                            echo 
-                            "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
-                                <img class=\"card-img-top\" src=\"assets/default.jpg\" />
-                                <div class=\"card-body blogPostBody\">
-                                    <h3 class=\"card-title\">$title</h3>
-                                    <hr />
-                                    <p class=\"card-text blogPostDate\">$date</p>
-                                </div>
-                            </div>";
-                        }
-
-                        if ($i % 3 == 0 || $i == count($blogPosts)) {
-                            echo "</div>
-                            </div>";
+                    if (count($blogPosts) > 0) {
+                        for ($i = 1; $i <= count($blogPosts); $i++) {
+                            if ($i % 3 == 1) {
+                                echo "<div class=\"slide\">
+                                <div class=\"slideContainer\">";
+                            }
+    
+                            $post = $blogPosts[$i - 1];
+                            $id = $post->ID;
+                            $title = $post->Title;
+                            $date = $post->Date;
+                            $image = $post->ImagePath;
+                            $text = $post->Text;
+    
+                            if (!empty($image)) {
+                                echo 
+                                "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
+                                    <img class=\"card-img-top\" src=\"$image\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                </div>";
+                            } else {
+                                echo 
+                                "<div class=\"card blogPost\" onclick=\"location.href='/blogPost.php?id=$id'\">
+                                    <img class=\"card-img-top\" src=\"assets/default.jpg\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                </div>";
+                            }
+    
+                            if ($i % 3 == 0 || $i == count($blogPosts)) {
+                                echo "</div>
+                                </div>";
+                            }
                         }
                     }
                 ?>
@@ -232,8 +229,6 @@
 
     <script src="lib/fullpage.min.js"></script>
     <script src="lib/particles.js"></script>
-    <script src="lib/jquery-3.4.1.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,17 +1,7 @@
 TO DO:
-	Make the particles interactable without breaking the site.
-
 	Migrate any margins, font sizes, widths, etc. into media queries
 
-	Use Jquery to loop through all divs with class blogPost
-	Add two closing divs tags and two opening div tags (one with class slide and one with slideContainer) after each blog post
-	Make sure the last post only has two closing div tags no opening
-
-	Change slideContainers to justify content center than add margin-right: 3.5%; on the first two cards in the container.
-
 	Fix Button and dropzone text on add post section
-
-	Fix slidecontainer animations not working unless youre on the first slide
 
 	Add error messages to dropzone.
 

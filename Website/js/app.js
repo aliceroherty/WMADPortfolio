@@ -1,7 +1,10 @@
 var slidesResized = false;
 
 $(() => {
+    //Hiding Navbar
     hideNav();    
+
+    //Initializing the fullpage.js library
     initializeFullpage();
 
     //Loading background particle effect
@@ -10,11 +13,16 @@ $(() => {
 
 //Adjusting the sections padding when the window is resized
 $(window).resize(() => {
+    //Setting Padding to compensate for the absolutely positioned navbar
     setPadding();
+
+    //Resizing Slides for Mobile
     resizeSlides();
 });
 
 $(window).on("load", () => {
+    //Resizing Slides for Mobile
+    resizeSlides();
 
     //Getting rid of Flash of Unstyled Content
     $("html").css("visibility", "visible");
@@ -23,7 +31,6 @@ $(window).on("load", () => {
     //Landing Page Animations
     animateCSS("#landingPageContainer h1", "bounceInDown");
     animateCSS("#landingPageContainer h3", "bounceInDown");
-
     $('#landingPageContainer button').addClass('delay-2s');
     animateCSS("#landingPageContainer button", "bounceInUp", () => {
         $('#landingPageContainer button').removeClass('delay-2s');
@@ -31,6 +38,7 @@ $(window).on("load", () => {
     });
 });
 
+//Closing the hamburger menu when the user clicks a link
 $(".nav-link").click(() => {
     collapseNav();
 });
@@ -60,22 +68,29 @@ function collapseNav() {
     $('.collapse').collapse('hide');
 }
 
+//A Function to Switch the Number of Cards per Slide from 3 to 1 on Mobile
 function resizeSlides() {
     if (window.innerWidth < 992 && !slidesResized) {
-        /*//Remembering active section and slide
+        //Remembering active section and slide
         let activeSlideIndex = $('.fp-section.active').find('.slide.active').index();
         var activeSectionIndex = $('.fp-section.active').index();
 
+        //Looping through all Sections
         $(".section").each((index, section) => {
+            //Getting the Sections ID
             let sectionID = $(section).attr('id');
             
+            //Making Sure the Section has Slides
             if (sectionID != "homeSection" && sectionID != "contactSection" && sectionID != "resumeSection") {
+                //Storing Cards
                 let cards = $(`#${sectionID} .card`);
 
                 //Removing Slides and their Containers
-                $(`#${sectionID} .slide, .slideContainer`).remove();
+                $(`#${sectionID} .slide, #${sectionID} .slideContainer`).remove();
 
+                //Looping through Cards
                 cards.each((index, card) => {
+                    //Rebuilding HTML
                     let slide = $("<div class='slide fp-slide fp-table'>").appendTo(`#${sectionID} .fp-slidesContainer`);
                     let tableCell = $("<div class='fp-tableCell'>").appendTo(slide);
                     let slideContainer = $("<div class='slideContainer'>").appendTo(tableCell);
@@ -95,58 +110,43 @@ function resizeSlides() {
 
         //Reinitializing Fullpage.js
         fullpage_api.destroy("all");
-        initializeFullpage();*/
-        //Remembering active section and slide
-        let activeSlideIndex = $('.fp-section.active').find('.slide.active').index();
-        var activeSectionIndex = $('.fp-section.active').index();
-        
-        let blogPosts = $(".blogPost");
-
-        $("#blogSection .slide, .slideContainer").remove();
-
-        blogPosts.each((index, blogPost) => {
-            let slide = $("<div class='slide fp-slide fp-table'>").appendTo("#blogSection .fp-slidesContainer");
-            let tableCell = $("<div class='fp-tableCell'>").appendTo(slide);
-            let slideContainer = $("<div class='slideContainer'>").appendTo(tableCell);
-            slideContainer.append(blogPost);
-        });
-
-        //applying active classes
-        if (activeSlideIndex > -1) {
-            $(".slide").eq(activeSlideIndex).addClass("active");
-        }
-
-        if (activeSectionIndex > -1) {
-            $('.section').eq(activeSectionIndex).addClass('active');
-        }
-
-        //Reinitializing Fullpage.js
-        fullpage_api.destroy("all");
         initializeFullpage();
-        
+
         slidesResized = true;
     } else if (window.innerWidth >= 992 && slidesResized) {
-        //Return to three cards per slide
+        //Saving Active Section and Slide
         let activeSlideIndex = $('.fp-section.active').find('.slide.active').index();
         var activeSectionIndex = $('.fp-section.active').index();
-        
-        let blogPosts = $(".blogPost");
 
-        $("#blogSection .slide, .slideContainer").remove();
+        //Looping through all Sections
+        $(".section").each((index, section) => {
+            //Getting Section ID
+            let sectionID = $(section).attr('id');
+            
+            //Making sure the section has slides
+            if (sectionID != "homeSection" && sectionID != "contactSection" && sectionID != "resumeSection") {
+                //Storing Cards
+                let cards = $(`#${sectionID} .card`);
 
-        blogPosts.each((index, blogPost) => {
-            if ((index + 1) % 3 == 1) {
-                //insert opening tags
-            }
+                //Removing Slides and their Containers
+                $(`#${sectionID} .slide, #${sectionID} .slideContainer`).remove();
 
-            //Insert blog post
-            let slide = $("<div class='slide fp-slide fp-table'>").appendTo("#blogSection .fp-slidesContainer");
-            let tableCell = $("<div class='fp-tableCell'>").appendTo(slide);
-            let slideContainer = $("<div class='slideContainer'>").appendTo(tableCell);
-            slideContainer.append(blogPost);
+                //Looping through all stored cards
+                cards.each((index, card) => {
+                    //For every three cards add a slide otherwise get the last created slide
+                    if ((index + 1) % 3 == 1) {
+                        //Create a new slide
+                        let slide = $("<div class='slide fp-slide fp-table'>").appendTo(`#${sectionID} .fp-slidesContainer`);
+                        let tableCell = $("<div class='fp-tableCell'>").appendTo(slide);
+                        slideContainer = $("<div class='slideContainer'>").appendTo(tableCell);
+                    } else {
+                        //Getting last slide container 
+                        slideContainer = $(`#${sectionID} div.slideContainer`).last();
+                    }
 
-            if ((index + 1) % 3 == 0 || (index + 1) == blogPosts.length) {
-                //Insert ending tags
+                    //Add the card to the selected slide
+                    $(card).appendTo(slideContainer);
+                });
             }
         });
 
@@ -212,6 +212,7 @@ function initializeFullpage() {
                     break;
                 case "contact":
                     
+                    break;
                 case "resume":
                     
                     break;
@@ -232,13 +233,12 @@ function initializeFullpage() {
                     break;
                 case "contact":
                     
+                    break;
                 case "resume":
                     
                     break;
             }
             setPadding();
-        },
-        afterLoad: (origin, destination) => {
         }
     });
 }

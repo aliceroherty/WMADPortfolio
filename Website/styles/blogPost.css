@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&display=swap');
+
+body {
+    text-align: center;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../assets/Background_Desktop.svg');
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-size: 1vw;
+}
+
+.navbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: #333 !important;
+    font-size: 2vw;
+    transition: top 500ms ease-in-out;
+    text-align: bottom;
+}
+
+#logo {
+    width: 20%;
+    margin: auto 0.5em auto 0;
+    transition: transform 200ms ease-in-out;
+}
+
+#logo:hover {
+    transform: scale(1.05);
+}
+
+.navbar-brand {
+    text-align: left;
+    font-size: 1em; 
+    width: min-content !important;
+}
+
+.nav-link {
+    color: white !important;
+    transition: color 1000ms ease-in-out, transform 250ms ease-in-out !important;
+}
+
+.nav-link:hover {
+    transform: translateY(-0.1em);
+}
+
+.active.nav-link {
+    color: #44ADE2 !important;
+}
+
+#particles {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#wrapper {
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+

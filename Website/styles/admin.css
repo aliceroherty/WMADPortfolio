@@ -123,6 +123,7 @@ textarea::placeholder {
 
 #btnCreatePost {
     height: 10%;
+    margin-bottom: 2%;
 }
 
 button {

@@ -1,0 +1,8 @@
+/*Getting rid of Flash of Unstyled Content*/
+html {
+    visibility: hidden;
+    opacity: 0;
+
+    /*Getting rid of flash of scroll bar before fullpage is initialized*/
+    overflow: hidden;
+}
