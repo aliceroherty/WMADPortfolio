@@ -24,7 +24,9 @@ function initializeFullpage() {
             setPadding();
         },
         afterLoad: (origin, destination) => {
-        }
+        },
+        autoScrolling: false,
+        scrollBar: true
     });
 }
 

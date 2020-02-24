@@ -1,6 +1,6 @@
 <?php
     include 'includes/dbHelper.php';
-    $blogPosts = execute("SELECT * FROM blogposts ORDER BY date DESC");
+    $blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>

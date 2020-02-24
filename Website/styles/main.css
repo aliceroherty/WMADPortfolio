@@ -205,10 +205,6 @@ hr {
 
 /* Desktop Styles */
 @media only screen and (min-width: 769px) {
-    .mobileSlide {
-        display: none !important;
-    }
-
     #landingPageContainer h1 {
         margin-top: 10vh;
         font-size: 7vw;

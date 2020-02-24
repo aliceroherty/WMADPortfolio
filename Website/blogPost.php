@@ -30,9 +30,6 @@
         html {
             visibility: hidden;
             opacity: 0;
-
-            /*Getting rid of flash of scroll bar before fullpage is initialized*/
-            overflow: hidden;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="./lib/fullpage.min.css" />
@@ -61,7 +58,7 @@
                     <a class="nav-link" href="index.php#portfolio" data-menuanchor="portfolio">Portfolio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php#blog" data-menuanchor="blog">Blog</a>
+                    <a class="nav-link active" href="index.php#blog" data-menuanchor="blog">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php#contact" data-menuanchor="contact">Contact</a>
@@ -76,7 +73,20 @@
     <div id="particles"></div>
 
     <div id="wrapper">
-        <h1><?php echo $blogPost->Title?></h1>
+        <div id="post">
+            <img src="
+            <?php 
+                if (isset($blogPost->ImagePath)) {
+                    echo "$blogPost->ImagePath";
+                } else {
+                    echo "assets/default.jpg";
+                }
+            ?>" alt="image" id="postImage"/>
+            <h1><?php echo "$blogPost->Title"; ?></h1>
+            <h3><?php echo "$blogPost->Date"; ?></h3>
+            <hr/>
+            <?php echo "$blogPost->Text"; ?>
+        </div>
     </div>
     
     <script src="lib/fullpage.min.js"></script>

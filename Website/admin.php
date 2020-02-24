@@ -1,10 +1,11 @@
 <?php
-    include 'includes/dbHelper.php';
-    $blogPosts = execute("SELECT * FROM blogposts");
+include 'includes/dbHelper.php';
+$blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,8 +41,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#addPost" data-menuanchor="addPost">Add Post</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Blog
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="blogDropdown">
+                        <a class="dropdown-item" href="#addPost" data-menuanchor="addPost">Add Post</a>
+                        <a class="dropdown-item" href="#deletePosts" data-menuanchor="deletePosts">Delete Posts</a>
+                        <a class="dropdown-item" href="#updatePosts" data-menuanchor="updatePosts">Update Posts</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Logout</a>
@@ -64,6 +72,106 @@
                 </form>
             </div>
         </div>
+        <div id="deletePostsSection" class="section">
+            <div class="sectionContainer">
+                <h1>Delete Posts</h1>
+                <?php
+                    if (count($blogPosts) > 0) {
+                        for ($i = 1; $i <= count($blogPosts); $i++) {
+                            if ($i % 3 == 1) {
+                                echo "<div class=\"slide\">
+                                <div class=\"slideContainer\">";
+                            }
+    
+                            $post = $blogPosts[$i - 1];
+                            $id = $post->ID;
+                            $title = $post->Title;
+                            $date = $post->Date;
+                            $image = $post->ImagePath;
+                            $text = $post->Text;
+    
+                            if (!empty($image)) {
+                                echo 
+                                "<div class=\"card blogPost delete\" >
+                                    <img class=\"card-img-top img\" src=\"$image\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                    <i class=\"far fa-times-circle fa-3x\" onclick=\"deletePost($id)\"></i>
+                                </div>";
+                            } else {
+                                echo 
+                                "<div class=\"card blogPost delete\">
+                                    <img class=\"card-img-top img\" src=\"assets/default.jpg\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                    <i class=\"far fa-times-circle fa-3x\" onclick=\"deletePost($id)\"></i>
+                                </div>";
+                            }
+    
+                            if ($i % 3 == 0 || $i == count($blogPosts)) {
+                                echo "</div>
+                                </div>";
+                            }
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+        <div id="updatePostsSection" class="section">
+            <div class="sectionContainer">
+                <h1>Update Posts</h1>
+                <?php
+                    if (count($blogPosts) > 0) {
+                        for ($i = 1; $i <= count($blogPosts); $i++) {
+                            if ($i % 3 == 1) {
+                                echo "<div class=\"slide\">
+                                <div class=\"slideContainer\">";
+                            }
+    
+                            $post = $blogPosts[$i - 1];
+                            $id = $post->ID;
+                            $title = $post->Title;
+                            $date = $post->Date;
+                            $image = $post->ImagePath;
+                            $text = $post->Text;
+    
+                            if (!empty($image)) {
+                                echo 
+                                "<div class=\"card blogPost\" onclick=\"location.href='/updatePost.php?id=$id'\">
+                                    <img class=\"card-img-top\" src=\"$image\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                </div>";
+                            } else {
+                                echo 
+                                "<div class=\"card blogPost\" onclick=\"location.href='/updatePost.php?id=$id'\">
+                                    <img class=\"card-img-top\" src=\"assets/default.jpg\" />
+                                    <div class=\"card-body blogPostBody\">
+                                        <h3 class=\"card-title\">$title</h3>
+                                        <hr />
+                                        <p class=\"card-text blogPostDate\">$date</p>
+                                    </div>
+                                </div>";
+                            }
+    
+                            if ($i % 3 == 0 || $i == count($blogPosts)) {
+                                echo "</div>
+                                </div>";
+                            }
+                        }
+                    }
+                ?>
+            </div>
+        </div>
     </div>
 
     <script src="lib/fullpage.min.js"></script>
@@ -73,4 +181,5 @@
     <script src="lib/dropzone.js"></script>
     <script src="js/admin.js"></script>
 </body>
+
 </html>
