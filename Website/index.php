@@ -34,7 +34,7 @@
             <div id="landingPageContainer">
                 <h1>Alice Roherty-Carrier</h1>
                 <h3>Web &amp; Mobile Developer</h3>
-                <button onclick="window.location='#about'">Learn More <span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button onclick="window.location='#about'" id="landingPageButton">Learn More <span class="glyphicon glyphicon-chevron-down"></span></button>
             </div>
         </div>
 

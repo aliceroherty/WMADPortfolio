@@ -6,9 +6,6 @@ $(() => {
 
     //Initializing the fullpage.js library
     initializeFullpage();
-
-    //Loading background particle effect
-    particlesJS.load("particles", "./assets/particles-config.json");
 });
 
 //Adjusting the sections padding when the window is resized
@@ -24,6 +21,9 @@ $(window).on("load", () => {
     //Resizing Slides for Mobile
     resizeSlides();
 
+    //Loading background particle effect
+    particlesJS.load("particles", "./assets/particles-config.json");  
+    
     //Getting rid of Flash of Unstyled Content
     $("html").css("visibility", "visible");
     $("html").css("opacity", "1");
@@ -238,7 +238,24 @@ function initializeFullpage() {
                     
                     break;
             }
-            setPadding();
+
+            //Fixing Nav Pushing Content Down on Mobile
+            if (window.innerWidth < 992) {
+                setTimeout(() => {
+                    setPadding();
+                }, 400);
+            } else {
+                setPadding();
+            }
+
+            //Fixing Button Flying Across Background when not Starting on the Landing Page
+            if (destination.anchor != "home") {
+                setTimeout(() => {
+                    $("#landingPageButton").css("visibility", "hidden");
+                }, 500);
+            } else {
+                $("#landingPageButton").css("visibility", "visible");
+            }
         }
     });
 }

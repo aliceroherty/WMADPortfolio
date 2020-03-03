@@ -43,9 +43,6 @@ body {
     transition: color 1000ms ease-in-out, transform 250ms ease-in-out !important;
 }
 
-.nav-link:hover {
-}
-
 .active.nav-link {
     color: #44ADE2 !important;
 }
@@ -76,14 +73,17 @@ body {
 }
 
 .sectionForm {
-    height: 85%;
-    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
     margin-top: 1%;
     color: #000 !important;
+}
+
+#addPostForm, #updatePostForm {
+    height: 85%;
+    width: 80%;
 }
 
 input[type="text"] {
@@ -120,7 +120,7 @@ textarea::placeholder {
     transform: translateY(3em);
 }
 
-#btnCreatePost {
+#btnCreatePost, #btnUpdatePost {
     height: 10%;
     margin-bottom: 2%;
 }

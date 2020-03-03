@@ -11,16 +11,12 @@ $(() => {
 
     resizeSlides();
 
-    //Loading Blog Post Dropzone
-    let dropzone = new Dropzone("#blogPostImage", {
+    let dropzone = new Dropzone("#createBlogPostImage", {
         url: 'createPost.php',
         autoProcessQueue: false,
         addRemoveLinks: true,
         acceptedFiles: "image/*",
         maxFiles: 1,
-        init: () => {
-            
-        },
         accept: (file, done) => {
             done();
         }
@@ -29,22 +25,38 @@ $(() => {
     $("#btnCreatePost").click((e) => {
         e.preventDefault();
         e.stopPropagation();
-
         if (dropzone.getQueuedFiles().length > 0) {
             dropzone.processQueue();
-        } else {
-            submitForm("createPost.php");
+        }
+        else {
+            formData = new FormData();
+            formData.append('title', $("#createPostTitle").val());
+            formData.append('text', $("#createPostText").val());
+
+            $.ajax({
+                    url: "createPost.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        $("#createPostTitle").val("");
+                        $("#createPostText").val("");
+                        dropzone.removeAllFiles();
+                        location.reload(true);
+                    }
+            });
         }
     });
 
-    dropzone.on("sending", function(data, xhr, formData) {
-        formData.append("title", $("#title").val());
-        formData.append("text", $("#text").val());
+    dropzone.on("sending", function (data, xhr, formData) {
+        formData.append("title", $("#createPostTitle").val());
+        formData.append("text", $("#createPostText").val());
     });
 
-    dropzone.on("complete", function(file) {
-        $("#title").val("");
-        $("#text").val("");
+    dropzone.on("complete", function (file) {
+        $("#createPostTitle").val("");
+        $("#createPostText").val("");
         setTimeout(() => {
             dropzone.removeAllFiles();
             location.reload(true);
@@ -64,12 +76,93 @@ $(window).on("load", () => {
 });
 
 function deletePost(id) {
-    console.log(id);
-
     //Making Ajax Request to deletePost.php
     $.post("deletePost.php", {id: id}, () => {
-        //Refreshing Page
+        //Refreshing Page to show the changes
         location.reload(true);
+    });
+}
+
+function buildUpdateForm(id) {
+    //Using ajax to retrieve a JSON object representing the post to be updated
+    $.getJSON(`getPostInfo.php?id=${id}`, (blogPost) => {
+        //Getting rid of the slides currently in the update posts section
+        $("#updatePostsSection .slide").remove();
+
+        //Building a form in place of the slides
+        let section = $("#updatePostsSection .sectionContainer");
+        let form = $("<div id='updatePostForm' class='sectionForm' action='updatePost.php' method='POST'></div>");
+        let titleInput = $(`<input type='text' name='title' placeholder='Title' id='updatePostTitle' class='form-control' value='${blogPost.Title}'>`);
+        let textInput = $(`<textarea name='text' class='form-control' placeholder='Post Text' id='updatePostText'>${blogPost.Text}</textarea>`);
+        let dropzone = $("<div id='updateBlogPostImage' class='dropzone'><div class='dz-message' data-dz-message><span>Drop Images or Click Here to Upload</span></div></div>");
+        let updateButton = $("<button type='submit' id='btnUpdatePost'>Update</button>");
+        section.append(form);
+        form.append(titleInput);
+        form.append(textInput);
+        form.append(dropzone);
+        form.append(updateButton);
+
+        //Reappling active class to update posts section
+        $("#updatePostsSection").addClass("active");
+
+        //Reinitializing Fullpage.js
+        fullpage_api.destroy("all");
+        initializeFullpage();
+
+        //Initializing Dropzone
+        dropzone = new Dropzone("#updateBlogPostImage", {
+            url: `updatePost.php?id=${id}`,
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            acceptedFiles: "image/*",
+            maxFiles: 1,
+            accept: (file, done) => {
+                done();
+            }
+        });
+    
+        $("#btnUpdatePost").click((e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (dropzone.getQueuedFiles().length > 0) {
+                dropzone.processQueue();
+            }
+            else {
+                formData = new FormData();
+                formData.append('title', $("#updatePostTitle").val());
+                formData.append('text', $("#updatePostText").val());
+
+                $.ajax({
+                        url: `updatePost.php?id=${id}`,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(data){
+                            $("#updatePostTitle").val("");
+                            $("#updatePostText").val("");
+                            dropzone.removeAllFiles();
+                            location.reload(true);
+                        }
+                });
+            }
+        });
+    
+        dropzone.on("sending", function (data, xhr, formData) {
+            formData.append("title", $("#updatePostTitle").val());
+            formData.append("text", $("#updatePostText").val());
+        });
+        
+        dropzone.on("complete", function (file) {
+            $("#updatePostTitle").val("");
+            $("#updatePostText").val("");
+            setTimeout(() => {
+                dropzone.removeAllFiles();
+                location.reload(true);
+            }, 2000);
+        });
+
+        $("#updatePostsSection h1").css("margin", "1% 0 0.5% 0");
     });
 }
 
@@ -81,25 +174,6 @@ function setPadding() {
     else {
         $(".sectionContainer").css("padding-top", 0);
     }
-}
-
-function submitForm(url)
-{
-    formData = new FormData();
-    formData.append('title', $("#title").val());
-    formData.append('text', $("#text").val());
-
-    $.ajax({
-            url: url,
-            data: formData,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            success: function(data){
-                $("#title").val("");
-                $("#text").val("");
-            }
-    });
 }
 
 //A Function to Switch the Number of Cards per Slide from 3 to 1 on Mobile

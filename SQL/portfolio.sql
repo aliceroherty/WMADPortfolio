@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Feb 07, 2020 at 07:56 PM
--- Server version: 5.7.24
--- PHP Version: 7.2.14
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -21,9 +12,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `portfolio`
 --
-
-CREATE DATABASE portfolio;
-USE portfolio;
+CREATE DATABASE IF NOT EXISTS `portfolio` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `portfolio`;
 
 -- --------------------------------------------------------
 
@@ -55,30 +45,6 @@ CREATE TABLE `blogposts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `ID` int(11) NOT NULL,
-  `Name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `languages`
---
-
-CREATE TABLE `languages` (
-  `ID` int(11) NOT NULL,
-  `Name` varchar(25) NOT NULL,
-  `ImagePath` text NOT NULL,
-  `AltText` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `projectimages`
 --
 
@@ -100,9 +66,30 @@ CREATE TABLE `projects` (
   `Description` text NOT NULL,
   `Teaser` varchar(150) NOT NULL,
   `GithubLink` text,
-  `YoutubeLink` text,
-  `CategoryID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL
+  `YoutubeLink` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projectskills`
+--
+
+CREATE TABLE `projectskills` (
+  `ProjectID` int(11) NOT NULL,
+  `SkillID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skills`
+--
+
+CREATE TABLE `skills` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(25) NOT NULL,
+  `ImagePath` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -122,18 +109,6 @@ ALTER TABLE `blogposts`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `languages`
---
-ALTER TABLE `languages`
-  ADD PRIMARY KEY (`ID`);
-
---
 -- Indexes for table `projectimages`
 --
 ALTER TABLE `projectimages`
@@ -144,9 +119,20 @@ ALTER TABLE `projectimages`
 -- Indexes for table `projects`
 --
 ALTER TABLE `projects`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `CategoryID` (`CategoryID`),
-  ADD KEY `LanguageID` (`LanguageID`);
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `projectskills`
+--
+ALTER TABLE `projectskills`
+  ADD PRIMARY KEY (`ProjectID`,`SkillID`),
+  ADD KEY `SkillID` (`SkillID`);
+
+--
+-- Indexes for table `skills`
+--
+ALTER TABLE `skills`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -165,18 +151,6 @@ ALTER TABLE `blogposts`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `languages`
---
-ALTER TABLE `languages`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `projectimages`
 --
 ALTER TABLE `projectimages`
@@ -186,6 +160,12 @@ ALTER TABLE `projectimages`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -199,11 +179,11 @@ ALTER TABLE `projectimages`
   ADD CONSTRAINT `ProjectID` FOREIGN KEY (`ProjectID`) REFERENCES `projects` (`ID`);
 
 --
--- Constraints for table `projects`
+-- Constraints for table `projectskills`
 --
-ALTER TABLE `projects`
-  ADD CONSTRAINT `CategoryID` FOREIGN KEY (`CategoryID`) REFERENCES `categories` (`ID`),
-  ADD CONSTRAINT `LanguageID` FOREIGN KEY (`LanguageID`) REFERENCES `languages` (`ID`);
+ALTER TABLE `projectskills`
+  ADD CONSTRAINT `projectskills_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `projects` (`ID`),
+  ADD CONSTRAINT `projectskills_ibfk_2` FOREIGN KEY (`SkillID`) REFERENCES `skills` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

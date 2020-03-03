@@ -1,12 +1,4 @@
 TO DO:
-	Migrate any margins, font sizes, widths, etc. into media queries
-
 	Fix Button and dropzone text on add post section
 
 	Add error messages to dropzone.
-
-    Fix nav on mobile. When navigating to a section using the hamburger menu the section is pushed down by the menu.
-
-	Maybe set visibility:hidden on button on the onleave for any section that isnt the home section to get rid of the  button flying across the screen
-
-	PHP Post Delete doesn't account for images that may be left behind

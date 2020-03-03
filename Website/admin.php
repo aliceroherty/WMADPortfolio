@@ -62,11 +62,11 @@ $blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
         <div id="addPostSection" class="section">
             <div class="sectionContainer">
                 <h1>Add Post</h1>
-                <form enctype="multipart/form-data" class="sectionForm" action="/" method="POST">
-                    <input type="text" name="title" placeholder="Title" class="form-control" id="title">
-                    <textarea name="text" class="form-control" placeholder="Post Text" id="text"></textarea>
-                    <div id="blogPostImage" class="dropzone">
-                        <div class="dz-message" data-dz-message><span>Drop Files or Click Here to Upload</span></div>
+                <form id="addPostForm" class="sectionForm" enctype="multipart/form-data" action="/" method="POST">
+                    <input type="text" name="title" placeholder="Title" class="form-control" id="createPostTitle">
+                    <textarea name="text" class="form-control" placeholder="Post Text" id="createPostText"></textarea>
+                    <div id="createBlogPostImage" class="dropzone">
+                        <div class="dz-message" data-dz-message><span>Drop Images or Click Here to Upload</span></div>
                     </div>
                     <button type="submit" id="btnCreatePost">Create</button>
                 </form>
@@ -143,7 +143,7 @@ $blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
     
                             if (!empty($image)) {
                                 echo 
-                                "<div class=\"card blogPost\" onclick=\"location.href='/updatePost.php?id=$id'\">
+                                "<div class=\"card blogPost\" onclick=\"buildUpdateForm($id)\">
                                     <img class=\"card-img-top\" src=\"$image\" />
                                     <div class=\"card-body blogPostBody\">
                                         <h3 class=\"card-title\">$title</h3>
@@ -153,7 +153,7 @@ $blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
                                 </div>";
                             } else {
                                 echo 
-                                "<div class=\"card blogPost\" onclick=\"location.href='/updatePost.php?id=$id'\">
+                                "<div class=\"card blogPost\" onclick=\"buildUpdateForm($id)\">
                                     <img class=\"card-img-top\" src=\"assets/default.jpg\" />
                                     <div class=\"card-body blogPostBody\">
                                         <h3 class=\"card-title\">$title</h3>

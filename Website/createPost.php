@@ -1,5 +1,6 @@
 <?php
     include 'includes/dbHelper.php';
+    include 'includes/fileCheck.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_POST['title']) && !empty($_POST['text'])) {
@@ -57,26 +58,5 @@
                 $cmd->execute();
             }
         }
-    }
-
-    function fileCheck($file) {
-        //getimagesize() only works for image files will return false if it fails
-        $img_info_array = getimagesize($file);
-
-        if ($img_info_array !== false) {
-            $uploadDirectory = 'uploads/';
-            $uploadFile = $uploadDirectory . basename($_FILES["file"]["name"]);
-            if (file_exists($uploadFile)) {
-                //File name exists
-            } else {
-                if (move_uploaded_file($_FILES["file"]["tmp_name"], $uploadFile)) {
-                    //File uploaded successfully
-                } else {
-                    //File Invalid
-                }
-            }
-        }
-
-        return $uploadFile;
     }
 ?>
