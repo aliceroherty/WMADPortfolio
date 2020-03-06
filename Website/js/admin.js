@@ -11,7 +11,7 @@ $(() => {
 
     resizeSlides();
 
-    let dropzone = new Dropzone("#createBlogPostImage", {
+    let createPostDropzone = new Dropzone("#createBlogPostImage", {
         url: 'createPost.php',
         autoProcessQueue: false,
         addRemoveLinks: true,
@@ -25,8 +25,8 @@ $(() => {
     $("#btnCreatePost").click((e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (dropzone.getQueuedFiles().length > 0) {
-            dropzone.processQueue();
+        if (createPostDropzone.getQueuedFiles().length > 0) {
+            createPostDropzone.processQueue();
         }
         else {
             formData = new FormData();
@@ -42,25 +42,106 @@ $(() => {
                     success: function(data){
                         $("#createPostTitle").val("");
                         $("#createPostText").val("");
-                        dropzone.removeAllFiles();
+                        createPostDropzone.removeAllFiles();
                         location.reload(true);
                     }
             });
         }
     });
 
-    dropzone.on("sending", function (data, xhr, formData) {
+    createPostDropzone.on("sending", function (data, xhr, formData) {
         formData.append("title", $("#createPostTitle").val());
         formData.append("text", $("#createPostText").val());
     });
 
-    dropzone.on("complete", function (file) {
+    createPostDropzone.on("complete", function (file) {
         $("#createPostTitle").val("");
         $("#createPostText").val("");
         setTimeout(() => {
-            dropzone.removeAllFiles();
+            createPostDropzone.removeAllFiles();
             location.reload(true);
         }, 2000);
+    });
+
+    createSkillDropzone = new Dropzone("#createSkillImage", {
+        url: 'createSkill.php',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        maxFiles: 1,
+        accept: (file, done) => {
+            done();
+        }
+    });
+
+    $("#btnCreateSkill").click((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (createSkillDropzone.getQueuedFiles().length > 0) {
+            createSkillDropzone.processQueue();
+        }
+    });
+
+    createSkillDropzone.on("sending", function (data, xhr, formData) {
+        formData.append("name", $("#addSkillName").val());
+    });
+
+    createSkillDropzone.on("complete", function (file) {
+        $("#addSkillName").val("");
+        setTimeout(() => {
+            createSkillDropzone.removeAllFiles();
+            location.reload(true);
+        }, 2000);
+    });
+    
+    let createProjectDropzone = new Dropzone("#createProjectImages", {
+        url: 'createProject.php',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        uploadMultiple: true,
+        parallelUploads: 6,
+        accept: (file, done) => {
+            done();
+        }
+    });
+
+    $("#btnCreateProject").click((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (createProjectDropzone.getQueuedFiles().length > 0) {
+            createProjectDropzone.processQueue();
+        }
+    });
+
+    createProjectDropzone.on("sending", function (data, xhr, formData) {
+        formData.append("title", $("#createProjectTitle").val());
+        formData.append("teaser", $("#createProjectTeaser").val());
+        formData.append("githubLink", $("#createProjectGithubLink").val());
+        formData.append("youtubeLink", $("#createProjectYoutubeLink").val());
+        formData.append("description", $("#createProjectDescription").val());
+    });
+
+    createProjectDropzone.on("complete", function (file) {
+        $("#createProjectTitle").val("");
+        $("#createProjectTeaser").val("");
+        $("#createProjectGithubLink").val("");
+        $("#createProjectYoutubeLink").val("");
+        $("#createProjectDescription").val("");
+        setTimeout(() => {
+            createProjectDropzone.removeAllFiles();
+            location.reload(true);
+        }, 2000);
+    });
+
+    $("#btnAddProjectSkill").click(() => {
+        let projectID = $("#addProjectSkillProjectID").children("option:selected").val();
+        let skillID = $("#addProjectSkillSkillID").children("option:selected").val();
+
+        $.post("createProjectSkill.php", {projectID, skillID}, () => {
+            $("#addProjectSkillProjectID")[0].selectedIndex = -1;
+            $("#addProjectSkillSkillID")[0].selectedIndex = -1;
+        });
     });
 });
 
@@ -77,13 +158,25 @@ $(window).on("load", () => {
 
 function deletePost(id) {
     //Making Ajax Request to deletePost.php
-    $.post("deletePost.php", {id: id}, () => {
+    $.post("deletePost.php", {id}, () => {
         //Refreshing Page to show the changes
         location.reload(true);
     });
 }
 
-function buildUpdateForm(id) {
+function deleteSkill(id) {
+    $.post("deleteSkill.php", {id}, () => {
+        location.reload(true);
+    });
+}
+
+function deleteProject(id) {
+    $.post("deleteProject.php", {id}, () => {
+        location.reload(true);
+    });
+}
+
+function buildUpdatePostForm(id) {
     //Using ajax to retrieve a JSON object representing the post to be updated
     $.getJSON(`getPostInfo.php?id=${id}`, (blogPost) => {
         //Getting rid of the slides currently in the update posts section
@@ -294,7 +387,18 @@ function initializeFullpage() {
     //Loading fullpage.js library
     new fullpage("#wrapper", {
         licenseKey: "E6347E2E-65754562-9450F523-A2A55F5E",
-        anchors: ["addPost", "deletePosts", "updatePosts"],
+        anchors: [
+            "addPost", 
+            "deletePosts", 
+            "updatePosts", 
+            "addProject", 
+            "addProjectSkills",
+            "deleteProject", 
+            "updateProject",
+            "addSkill",
+            "deleteSkill",
+            "updateSkill"
+        ],
         loopHorizontal: false,
         paddingTop: $("nav").height(),
         menu: "#menu",
@@ -312,8 +416,19 @@ function initializeFullpage() {
 
                 break;
             }
+
+            
         },
         afterLoad: (origin, destination) => {
+            $(".nav-item.dropdown").each((index, dropdown) => {
+                if ($(dropdown).children("div.dropdown-menu").children(".active").length > 0) {
+                    let link = $(dropdown).children(".nav-link");
+                    $(link).addClass("activeDropdown");
+                } else if ($(dropdown).children(".activeDropdown").length > 0) {
+                    let link = $(dropdown).children(".nav-link");
+                    $(link).removeClass("activeDropdown");
+                }
+            });
         }
     });
 }

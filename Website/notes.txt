@@ -1,4 +1,6 @@
 TO DO:
-	Fix Button and dropzone text on add post section
+	Fix Button and Dropzone text on add post section
 
-	Add error messages to dropzone.
+	Add error messages to Dropzone.
+
+	

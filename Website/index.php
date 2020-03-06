@@ -1,6 +1,7 @@
 <?php
     include 'includes/dbHelper.php';
     $blogPosts = execute("SELECT * FROM blogposts ORDER BY id DESC");
+    $projects = execute("SELECT * FROM projects ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -76,91 +77,37 @@
         <div class="section" id="portfolioSection">
             <div class="sectionContainer">
                 <h1>Portfolio</h1>
-
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/node.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/CSharp.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/php.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/node.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/CSharp.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/php.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slideContainer">
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/node.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/CSharp.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                        <div class="card project">
-                            <div class="card-body projectBody">
-                                <img class="projectIcon img-fluid" src="assets/php.png" alt="" />
-                                <h3 class="card-title">Project Title</h3>
-                                <hr />
-                                <p class="card-text projectTeaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat est nec ex tempor, feugiat maximus arcu fringilla. Duis at lobortis ligula.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    if (count($projects) > 0) {
+                        for ($i = 1; $i <= count($projects); $i++) {
+                            if ($i % 3 == 1) {
+                                echo "<div class=\"slide\">
+                                <div class=\"slideContainer\">";
+                            }
+    
+                            $project = $projects[$i - 1];
+                            $id = $project->ID;
+                            $title = $project->Title;
+                            $teaser = $project->Teaser;
+                            $image = getProjectSkillImage($id);
+    
+                            echo 
+                            "<div class=\"card project\">
+                                <div class=\"card-body projectBody\">
+                                    <img class=\"projectIcon img-fluid\" src=\"$image\" alt=\"\" />
+                                    <h3 class=\"card-title\">$title</h3>
+                                    <hr />
+                                    <p class=\"card-text projectTeaser\">$teaser</p>
+                                </div>
+                            </div>";
+    
+                            if ($i % 3 == 0 || $i == count($projects)) {
+                                echo "</div>
+                                </div>";
+                            }
+                        }
+                    }
+                ?>
             </div>
         </div>
 

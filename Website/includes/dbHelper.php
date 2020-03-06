@@ -28,4 +28,30 @@
 
         return $results;
     }
+
+    function getProjectSkillImage($id) {
+        $conn = connect();
+
+        $selectSkillID = "SELECT SkillID FROM projectskills WHERE ProjectID = ? LIMIT 1";
+
+        if ($cmd = $conn->prepare($selectSkillID)) {
+            $cmd->bind_param("i", $id);
+            $cmd->execute();
+            $cmd->bind_result($skillID);
+            $cmd->fetch();
+            $cmd->close();
+        }
+
+        $selectImagePath = "SELECT ImagePath FROM skills WHERE ID = ?";
+
+        if ($cmd = $conn->prepare($selectImagePath)) {
+            $cmd->bind_param("i", $skillID);
+            $cmd->execute();
+            $cmd->bind_result($imagePath);
+            $cmd->fetch();
+            $cmd->close();
+        }
+
+        return $imagePath;
+    }
 ?>

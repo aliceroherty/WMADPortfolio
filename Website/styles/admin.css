@@ -47,6 +47,10 @@ body {
     color: #44ADE2 !important;
 }
 
+.activeDropdown {
+    color: #44ADE2 !important;
+}
+
 #particles {
     position: absolute;
     top: 0;
@@ -58,8 +62,6 @@ body {
 
 #wrapper {
     z-index: 2;
-    /* Allows interaction with the particles but breaks fullpage.js scrolling for mobile */
-    /*pointer-events: none;*/
 }
 
 .sectionContainer {
@@ -81,9 +83,37 @@ body {
     color: #000 !important;
 }
 
-#addPostForm, #updatePostForm {
+#addPostForm, #updatePostForm, #addProjectForm {
     height: 85%;
     width: 80%;
+}
+
+#addSkillForm {
+    height: 60%;
+    width: 80%;
+    margin-top: 5%;
+}
+
+#addProjectSkillsForm {
+    height: 65%;
+    width: 80%;
+    margin-top: 5%;
+}
+
+#addSkillForm input, #addSkillForm  button {
+    height: 13%;
+}
+
+#addProjectSkillsForm  button {
+    height: 13%;
+}
+
+/*#addProjectSkillsForm select {
+    height: 13%;
+}*/
+
+#addProjectForm input, #addProjectForm  button {
+    height: 8%;
 }
 
 input[type="text"] {
@@ -101,6 +131,18 @@ textarea {
     color: #000 !important;
 }
 
+textarea::placeholder {
+    transform: translateY(3em);
+}
+
+#createProjectDescription {
+    min-height: 25%;
+}
+
+#createProjectDescription::placeholder {
+    transform: translateY(2em);
+}
+
 .dropzone {
     border-radius: 0.25em;
     font-size: 1.5em;
@@ -114,10 +156,6 @@ textarea {
 
 .dz-message {
     color: #6c757d;
-}
-
-textarea::placeholder {
-    transform: translateY(3em);
 }
 
 #btnCreatePost, #btnUpdatePost {
@@ -300,6 +338,14 @@ hr {
 
     #deletePostsSection h1, #updatePostsSection h1 {
         margin: 3.5vw;
+    }
+
+    #addSkillSection h1, #addProjectSkillsSection h1 {
+        margin-top: 5%;
+    }
+
+    .skillName {
+        margin-top: 1em;
     }
 }
 
