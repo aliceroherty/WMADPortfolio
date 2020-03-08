@@ -11,128 +11,7 @@ $(() => {
 
     resizeSlides();
 
-    let createPostDropzone = new Dropzone("#createBlogPostImage", {
-        url: 'createPost.php',
-        autoProcessQueue: false,
-        addRemoveLinks: true,
-        acceptedFiles: "image/*",
-        maxFiles: 1,
-        accept: (file, done) => {
-            done();
-        }
-    });
-
-    $("#btnCreatePost").click((e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (createPostDropzone.getQueuedFiles().length > 0) {
-            createPostDropzone.processQueue();
-        }
-        else {
-            formData = new FormData();
-            formData.append('title', $("#createPostTitle").val());
-            formData.append('text', $("#createPostText").val());
-
-            $.ajax({
-                    url: "createPost.php",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    type: 'POST',
-                    success: function(data){
-                        $("#createPostTitle").val("");
-                        $("#createPostText").val("");
-                        createPostDropzone.removeAllFiles();
-                        location.reload(true);
-                    }
-            });
-        }
-    });
-
-    createPostDropzone.on("sending", function (data, xhr, formData) {
-        formData.append("title", $("#createPostTitle").val());
-        formData.append("text", $("#createPostText").val());
-    });
-
-    createPostDropzone.on("complete", function (file) {
-        $("#createPostTitle").val("");
-        $("#createPostText").val("");
-        setTimeout(() => {
-            createPostDropzone.removeAllFiles();
-            location.reload(true);
-        }, 2000);
-    });
-
-    createSkillDropzone = new Dropzone("#createSkillImage", {
-        url: 'createSkill.php',
-        autoProcessQueue: false,
-        addRemoveLinks: true,
-        acceptedFiles: "image/*",
-        maxFiles: 1,
-        accept: (file, done) => {
-            done();
-        }
-    });
-
-    $("#btnCreateSkill").click((e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (createSkillDropzone.getQueuedFiles().length > 0) {
-            createSkillDropzone.processQueue();
-        }
-    });
-
-    createSkillDropzone.on("sending", function (data, xhr, formData) {
-        formData.append("name", $("#addSkillName").val());
-    });
-
-    createSkillDropzone.on("complete", function (file) {
-        $("#addSkillName").val("");
-        setTimeout(() => {
-            createSkillDropzone.removeAllFiles();
-            location.reload(true);
-        }, 2000);
-    });
-    
-    let createProjectDropzone = new Dropzone("#createProjectImages", {
-        url: 'createProject.php',
-        autoProcessQueue: false,
-        addRemoveLinks: true,
-        acceptedFiles: "image/*",
-        uploadMultiple: true,
-        parallelUploads: 6,
-        accept: (file, done) => {
-            done();
-        }
-    });
-
-    $("#btnCreateProject").click((e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (createProjectDropzone.getQueuedFiles().length > 0) {
-            createProjectDropzone.processQueue();
-        }
-    });
-
-    createProjectDropzone.on("sending", function (data, xhr, formData) {
-        formData.append("title", $("#createProjectTitle").val());
-        formData.append("teaser", $("#createProjectTeaser").val());
-        formData.append("githubLink", $("#createProjectGithubLink").val());
-        formData.append("youtubeLink", $("#createProjectYoutubeLink").val());
-        formData.append("description", $("#createProjectDescription").val());
-    });
-
-    createProjectDropzone.on("complete", function (file) {
-        $("#createProjectTitle").val("");
-        $("#createProjectTeaser").val("");
-        $("#createProjectGithubLink").val("");
-        $("#createProjectYoutubeLink").val("");
-        $("#createProjectDescription").val("");
-        setTimeout(() => {
-            createProjectDropzone.removeAllFiles();
-            location.reload(true);
-        }, 2000);
-    });
+    dropzoneSetup();
 
     $("#btnAddProjectSkill").click(() => {
         let projectID = $("#addProjectSkillProjectID").children("option:selected").val();
@@ -141,6 +20,7 @@ $(() => {
         $.post("createProjectSkill.php", {projectID, skillID}, () => {
             $("#addProjectSkillProjectID")[0].selectedIndex = -1;
             $("#addProjectSkillSkillID")[0].selectedIndex = -1;
+            location.reload(true);
         });
     });
 });
@@ -267,6 +147,131 @@ function setPadding() {
     else {
         $(".sectionContainer").css("padding-top", 0);
     }
+}
+
+function dropzoneSetup() {
+    let createPostDropzone = new Dropzone("#createBlogPostImage", {
+        url: 'createPost.php',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        maxFiles: 1,
+        accept: (file, done) => {
+            done();
+        }
+    });
+
+    $("#btnCreatePost").click((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (createPostDropzone.getQueuedFiles().length > 0) {
+            createPostDropzone.processQueue();
+        }
+        else {
+            formData = new FormData();
+            formData.append('title', $("#createPostTitle").val());
+            formData.append('text', $("#createPostText").val());
+
+            $.ajax({
+                    url: "createPost.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        $("#createPostTitle").val("");
+                        $("#createPostText").val("");
+                        createPostDropzone.removeAllFiles();
+                        location.reload(true);
+                    }
+            });
+        }
+    });
+
+    createPostDropzone.on("sending", function (data, xhr, formData) {
+        formData.append("title", $("#createPostTitle").val());
+        formData.append("text", $("#createPostText").val());
+    });
+
+    createPostDropzone.on("complete", function (file) {
+        $("#createPostTitle").val("");
+        $("#createPostText").val("");
+        setTimeout(() => {
+            createPostDropzone.removeAllFiles();
+            location.reload(true);
+        }, 2000);
+    });
+
+    createSkillDropzone = new Dropzone("#createSkillImage", {
+        url: 'createSkill.php',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        maxFiles: 1,
+        accept: (file, done) => {
+            done();
+        }
+    });
+
+    $("#btnCreateSkill").click((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (createSkillDropzone.getQueuedFiles().length > 0) {
+            createSkillDropzone.processQueue();
+        }
+    });
+
+    createSkillDropzone.on("sending", function (data, xhr, formData) {
+        formData.append("name", $("#addSkillName").val());
+    });
+
+    createSkillDropzone.on("complete", function (file) {
+        $("#addSkillName").val("");
+        setTimeout(() => {
+            createSkillDropzone.removeAllFiles();
+            location.reload(true);
+        }, 2000);
+    });
+    
+    let createProjectDropzone = new Dropzone("#createProjectImages", {
+        url: 'createProject.php',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        acceptedFiles: "image/*",
+        uploadMultiple: true,
+        parallelUploads: 6,
+        accept: (file, done) => {
+            done();
+        }
+    });
+
+    $("#btnCreateProject").click((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (createProjectDropzone.getQueuedFiles().length > 0) {
+            createProjectDropzone.processQueue();
+        }
+    });
+
+    createProjectDropzone.on("sending", function (data, xhr, formData) {
+        formData.append("title", $("#createProjectTitle").val());
+        formData.append("teaser", $("#createProjectTeaser").val());
+        formData.append("githubLink", $("#createProjectGithubLink").val());
+        formData.append("youtubeLink", $("#createProjectYoutubeLink").val());
+        formData.append("description", $("#createProjectDescription").val());
+    });
+
+    createProjectDropzone.on("complete", function (file) {
+        $("#createProjectTitle").val("");
+        $("#createProjectTeaser").val("");
+        $("#createProjectGithubLink").val("");
+        $("#createProjectYoutubeLink").val("");
+        $("#createProjectDescription").val("");
+        setTimeout(() => {
+            createProjectDropzone.removeAllFiles();
+            location.reload(true);
+        }, 2000);
+    });
 }
 
 //A Function to Switch the Number of Cards per Slide from 3 to 1 on Mobile

@@ -14,11 +14,19 @@ $(window).on("load", () => {
     //Making body height same as page height
     $("html, body").css("height", $(document).height());
 
-    animateCSS("#post", "bounceInDown");
+    if ($("#iconContainer").children().length == 1) {
+        $("#iconContainer").css("justify-content", "flex-end");
+    }
+
+    animateCSS("#project", "bounceInDown");
+});
+
+$(window).resize(() => {
+    setPadding();
 });
 
 function setPadding() {
-    $("#wrapper").css("padding-top", $("nav").height());
+    $("body, #wrapper").css("padding-top", $("nav").height());
 }
 
 function animateCSS(element, animationName, callback) {

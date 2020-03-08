@@ -3,4 +3,6 @@ TO DO:
 
 	Add error messages to Dropzone.
 
+	Delete Project Skills with specfied SkillID before deleting a skill
+
 	

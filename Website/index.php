@@ -92,7 +92,7 @@
                             $image = getProjectSkillImage($id);
     
                             echo 
-                            "<div class=\"card project\">
+                            "<div class=\"card project\" onclick=\"location.href='project.php?id=$id'\">
                                 <div class=\"card-body projectBody\">
                                     <img class=\"projectIcon img-fluid\" src=\"$image\" alt=\"\" />
                                     <h3 class=\"card-title\">$title</h3>

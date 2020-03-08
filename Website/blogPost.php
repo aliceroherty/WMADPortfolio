@@ -15,6 +15,9 @@
         } else {
             $blogPost = $results[0];
         }
+    } else {
+        include 'includes/redirect.php';
+        redirect_to("index.php");
     }
 ?>
 
@@ -24,7 +27,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post</title>
-
     <style>
         /*Getting rid of Flash of Unstyled Content*/
         html {
@@ -32,13 +34,12 @@
             opacity: 0;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="./lib/fullpage.min.css" />
     <link rel="stylesheet" type="text/css" href="./lib/animate.css" />
     <link rel="stylesheet" type="text/css" href="./lib/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="styles/blogPost.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-0 pb-0" id="menu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-0 pb-0 fixed-top" id="menu">
         <a class="navbar-brand align-items-center" href="index.php#home">
             <img src="assets/Logo.png" alt="Logo" class="d-inline-block align-center" id="logo" />
             Alice Roherty
@@ -89,7 +90,6 @@
         </div>
     </div>
     
-    <script src="lib/fullpage.min.js"></script>
     <script src="lib/particles.js"></script>
     <script src="lib/jquery-3.4.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
