@@ -191,11 +191,11 @@
                         $youtubeLink = $project->getYoutubeLink();
 
                         if (!empty($githubLink)) {
-                            echo "<i class=\"fab fa-github\" onclick=\"location.href='$githubLink'\"></i>";
+                            echo "<i class=\"fab fa-github\" onclick=\"window.open('$githubLink')\"></i>";
                         }
 
                         if (!empty($youtubeLink)) {
-                            echo "<i class=\"fab fa-youtube\" onclick=\"location.href='$youtubeLink'\"></i>";
+                            echo "<i class=\"fab fa-youtube\" onclick=\"window.open('$youtubeLink')\"></i>";
                         }
                     ?>
                     

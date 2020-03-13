@@ -91,7 +91,6 @@ body {
 }
 
 #landingPageContainer button {
-    pointer-events: all;
     background-color: transparent;    
     border-radius: .25em;
     border: 0.1em solid #fff;
@@ -204,8 +203,32 @@ hr {
     font-size: 1.5em;
 }
 
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    color: #000 !important;
+}
+
+#contactForm button {
+    background-color: transparent;    
+    border-radius: .25em;
+    border: 0.1em solid #fff;
+    color: #fff;
+    transition: transform 300ms ease-in-out, border 200ms ease-in-out 50ms, width 300ms ease-in-out, background-color 500ms ease-in-out, color 500ms ease-in-out;
+}
+
+#contactForm button:hover {
+    transform: scale(1.025);
+}
+
+#contactForm textarea {
+    resize: none;
+}
+
 /* Desktop Styles */
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 992px) {
     #landingPageContainer h1 {
         margin-top: 10vh;
         font-size: 7vw;
@@ -269,6 +292,25 @@ hr {
     .card:first-child, .card:nth-child(2) {
         margin-right: 3.5%;
     }
+
+    #contactForm {
+        margin-top: 2%;
+        height: 75%;
+        width: 80%;
+    }
+
+    #contactForm button {
+        font-size: 2.5vw;
+    }
+    
+    #contactForm textarea {
+        height: 50%;
+        font-size: 1.5em;
+    }
+    
+    #contactForm input[type=text] {
+        font-size: 1.5em;
+    }
 }
 
 /*Bootstrap Hamburger Menu Breakpoint*/
@@ -301,6 +343,20 @@ hr {
         align-items: center;
         height: 100%;
         padding: 0;
+        margin: 0;
+    }
+
+    .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next {
+        width: 4%;
+        height:6%;
+    }
+
+    .fp-controlArrow.fp-prev {
+        margin-left: 1.5em;
+    }
+
+    .fp-controlArrow.fp-next {
+        margin-right: 1.5em;
     }
 
     .card {
@@ -320,7 +376,48 @@ hr {
     }
 
     .card-text {
-        font-size: 2vw;
+        font-size: 4vw;
+    }
+
+    .projectIcon {
+        height: 25vw !important;
+        margin-bottom: 0.5em;
+    }
+
+    .project .card-body {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .project .card-title {
+        margin-top: 0.25em;
+    }
+
+    .project hr {
+        width: 100%;
+        border: 1px solid #44ADE2;
+    }
+
+    #contactForm {
+        margin-top: 2%;
+        height: 75%;
+        width: 90%;
+    }
+
+    #contactForm button {
+        font-size: 3.5vw;
+    }
+    
+    #contactForm textarea {
+        height: 50%;
+        font-size: 2.5em;
+    }
+    
+    #contactForm input[type=text] {
+        font-size: 2.5em;
     }
 }
 
@@ -382,11 +479,52 @@ hr {
     
     .card-title {
         margin-bottom: 0;
-        font-size: 5vw;
+        font-size: 6vw;
     }
 
     .card-text {
-        font-size: 2.5vw;
+        font-size: 4.5vw;
+    }
+
+    .projectIcon {
+        height: 35vw !important;
+        margin-bottom: 0.5em;
+    }
+
+    .project .card-body {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .project .card-title {
+        margin-top: 0.25em;
+    }
+
+    .project hr {
+        width: 100%;
+        border: 1px solid #44ADE2;
+    }
+
+    #contactForm {
+        margin-top: 2%;
+        height: 80%;
+        width: 90%;
+    }
+
+    #contactForm button {
+        font-size: 6vw;
+    }
+    
+    #contactForm textarea {
+        height: 50%;
+        font-size: 3.5em;
+    }
+    
+    #contactForm input[type=text] {
+        font-size: 3.5em;
     }
 }
 
@@ -454,6 +592,47 @@ hr {
     .card-text {
         font-size: 5vw;
     }
+
+    .projectIcon {
+        height: 35vw !important;
+        margin-bottom: 0.5em;
+    }
+
+    .project .card-body {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .project .card-title {
+        margin-top: 0.25em;
+    }
+
+    .project hr {
+        width: 100%;
+        border: 1px solid #44ADE2;
+    }
+
+    #contactForm {
+        margin-top: 2%;
+        height: 85%;
+        width: 95%;
+    }
+
+    #contactForm button {
+        font-size: 8vw;
+    }
+    
+    #contactForm textarea {
+        height: 65%;
+        font-size: 5em;
+    }
+    
+    #contactForm input[type=text] {
+        font-size: 5em;
+    }
 }
 
 @media only screen and (max-width: 450px) {
@@ -507,6 +686,28 @@ hr {
         font-size: 5vw;
     }
 
+    .projectIcon {
+        height: 35vw !important;
+        margin-bottom: 0.5em;
+    }
+
+    .project .card-body {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .project .card-title {
+        margin-top: 0.25em;
+    }
+
+    .project hr {
+        width: 100%;
+        border: 1px solid #44ADE2;
+    }
+
     hr {
         margin-top: 1vh;
         margin-bottom: 1vh;
@@ -523,5 +724,28 @@ hr {
 
     .fp-controlArrow.fp-next {
         margin-right: 1em;
+    }
+
+    #contactSection h1 {
+        margin-top: 2.5%;
+    }
+
+    #contactForm {
+        margin-top: 2%;
+        height: 82.5%;
+        width: 95%;
+    }
+
+    #contactForm button {
+        font-size: 9vw;
+    }
+    
+    #contactForm textarea {
+        height: 50%;
+        font-size: 7em;
+    }
+    
+    #contactForm input[type=text] {
+        font-size: 7em;
     }
 }
